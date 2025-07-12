@@ -139,13 +139,3 @@ body {
   margin-bottom: 2rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
-
-.title {
-  background: linear-gradient(135deg, #ffd700, #ffa500);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
