@@ -1,0 +1,151 @@
+body {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+}
+
+.dice-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.hope-die {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #1a1a1a;
+  border: 3px solid #ffa500;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.fear-die {
+  background: linear-gradient(135deg, #8b0000, #dc143c);
+  color: white;
+  border: 3px solid #660000;
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+}
+
+.die-face {
+  width: 120px;
+  height: 120px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 auto 1rem;
+  transition: all 0.3s ease;
+}
+
+.rolling {
+  animation: rollDice 0.6s ease-in-out;
+}
+
+@keyframes rollDice {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(90deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(270deg);
+  }
+}
+
+.outcome-card {
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.hope-success {
+  background: linear-gradient(135deg, #22c55e, #86efac);
+  color: #1a1a1a;
+  border: 2px solid #16a34a;
+}
+
+.fear-outcome {
+  background: linear-gradient(135deg, #dc2626, #f87171);
+  color: white;
+  border: 2px solid #991b1b;
+}
+
+.success-with-fear {
+  background: linear-gradient(135deg, #ea580c, #fdba74);
+  color: white;
+  border: 2px solid #c2410c;
+}
+
+.failure-with-hope {
+  background: linear-gradient(135deg, #2563eb, #93c5fd);
+  color: white;
+  border: 2px solid #1d4ed8;
+}
+
+.critical-success {
+  background: linear-gradient(135deg, #ffd700, #fff8dc);
+  color: #1a1a1a;
+  border: 2px solid #daa520;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.3);
+  }
+}
+
+.roll-button {
+  background: linear-gradient(135deg, #4169e1, #1e90ff);
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 3rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(65, 105, 225, 0.3);
+}
+
+.roll-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(65, 105, 225, 0.4);
+}
+
+.roll-button:active {
+  transform: translateY(0);
+}
+
+.title {
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
