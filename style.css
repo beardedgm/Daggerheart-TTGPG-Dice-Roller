@@ -206,3 +206,31 @@ body {
   transform: translateY(0);
 }
 
+/* Mobile responsiveness */
+@media (max-width: 500px) {
+  .dice-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .die-face {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+  }
+
+  .dice-container {
+    padding: 1rem;
+  }
+
+  .controls input {
+    width: 100%;
+    max-width: 160px;
+  }
+
+  .roll-button {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
