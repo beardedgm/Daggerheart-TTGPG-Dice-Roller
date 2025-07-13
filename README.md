@@ -18,6 +18,6 @@ Enter `0` for the DC if you just want to see the raw roll result without determi
 
 ## Browser Requirements and Dependencies
 
-- Uses the [Bulma CSS framework](https://bulma.io/) loaded from a CDN.
+- Uses custom CSS styles bundled with the project (no external framework required).
 - Requires a modern browser with JavaScript enabled.
 
