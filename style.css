@@ -26,6 +26,8 @@ background: linear-gradient(135deg, #1d0f3b, #000, #0f0c29);
 .dice-container {
             background: rgba(30, 15, 60, 0.25); /* Translucent dark purple */
             backdrop-filter: blur(6px); /* The frosted glass blur effect */
+            z-index: 2; /* Ensure panel is above the background animation */
+
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   padding: 2rem;
