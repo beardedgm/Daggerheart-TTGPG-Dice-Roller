@@ -1,21 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans:wght@400;700&family=Roboto+Condensed:wght@700&display=swap');
-
-:root {
-  --parchment-bg: #fdf6e3;
-  --parchment-dark: #e9e0cc;
-  --dnd-red: #8B0000;
-  --ink-black: #1a1a1a;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 body {
-  background-color: var(--parchment-bg);
-  background-image: url('https://www.transparenttextures.com/patterns/old-parchment.png');
-  color: var(--ink-black);
-  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, #8a2387, #e94057, #f27121);
+  color: #f0f0f0;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 2rem;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   min-height: 100vh;
 }
 
@@ -25,18 +18,19 @@ body {
 }
 
 .app-title {
-  font-family: 'Cinzel', serif;
-  color: var(--dnd-red);
+  font-weight: 600;
   text-align: center;
   margin-bottom: 2rem;
 }
 
 .dice-container {
-  background-color: rgba(255, 255, 255, 0.6);
-  border: 1px solid #c9c0ac;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
   padding: 2rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .dice-row {
@@ -50,16 +44,8 @@ body {
 }
 
 .die-title {
-  font-family: 'Cinzel', serif;
   margin-bottom: 0.5rem;
-}
-
-.die-title.hope {
-  color: #b8860b;
-}
-
-.die-title.fear {
-  color: var(--dnd-red);
+  font-weight: 600;
 }
 
 .die-label {
@@ -79,27 +65,28 @@ body {
 }
 
 .controls input {
-  background-color: var(--parchment-dark);
-  border: 1px solid #c9c0ac;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
   padding: 0.3rem 0.5rem;
   text-align: center;
   width: 120px;
   margin-bottom: 1rem;
-  font-family: inherit;
+  color: #ffffff;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .die-face {
   width: 120px;
   height: 120px;
-  /* approximate d12 shape */
   clip-path: polygon(
     50% 0%, 75% 6.7%, 93.3% 25%, 100% 50%, 93.3% 75%, 75% 93.3%,
-    50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7%
+    50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7
   );
   -webkit-clip-path: polygon(
     50% 0%, 75% 6.7%, 93.3% 25%, 100% 50%, 93.3% 75%, 75% 93.3%,
-    50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7%
+    50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7
   );
   display: flex;
   align-items: center;
@@ -112,14 +99,14 @@ body {
 
 .hope-die {
   background: linear-gradient(135deg, #ffd700, #ffed4e);
-  color: var(--ink-black);
+  color: #1a1a1a;
   border: 3px solid #ffa500;
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }
 
 .fear-die {
   background: linear-gradient(135deg, #8b0000, #dc143c);
-  color: white;
+  color: #ffffff;
   border: 3px solid #660000;
   box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
 }
@@ -154,31 +141,31 @@ body {
 
 .hope-success {
   background: linear-gradient(135deg, #22c55e, #86efac);
-  color: var(--ink-black);
+  color: #1a1a1a;
   border: 2px solid #16a34a;
 }
 
 .fear-outcome {
   background: linear-gradient(135deg, #dc2626, #f87171);
-  color: white;
+  color: #ffffff;
   border: 2px solid #991b1b;
 }
 
 .success-with-fear {
   background: linear-gradient(135deg, #ea580c, #fdba74);
-  color: white;
+  color: #ffffff;
   border: 2px solid #c2410c;
 }
 
 .failure-with-hope {
   background: linear-gradient(135deg, #2563eb, #93c5fd);
-  color: white;
+  color: #ffffff;
   border: 2px solid #1d4ed8;
 }
 
 .critical-success {
   background: linear-gradient(135deg, #ffd700, #fff8dc);
-  color: var(--ink-black);
+  color: #1a1a1a;
   border: 2px solid #daa520;
   animation: glow 2s ease-in-out infinite alternate;
 }
@@ -193,24 +180,24 @@ body {
 }
 
 .menu-button {
-  background-color: transparent;
-  border: 1px solid #c9c0ac;
-  color: var(--ink-black);
-  font-family: 'Roboto Condensed', sans-serif;
-  font-weight: 700;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 0.75rem 1.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .menu-button:hover {
-  background-color: var(--parchment-dark);
-  border-color: var(--dnd-red);
-  color: var(--dnd-red);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
 
@@ -222,10 +209,9 @@ body {
   margin: 2rem 0;
   border: none;
   height: 1px;
-  background-image: linear-gradient(to right, transparent, var(--dnd-red) 50%, transparent);
+  background-image: linear-gradient(to right, transparent, rgba(255,255,255,0.4) 50%, transparent);
 }
 
-/* Mobile responsiveness */
 @media (max-width: 500px) {
   .dice-row {
     flex-direction: column;
@@ -238,11 +224,11 @@ body {
     font-size: 2.5rem;
     clip-path: polygon(
       50% 0%, 75% 6.7%, 93.3% 25%, 100% 50%, 93.3% 75%, 75% 93.3%,
-      50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7%
+      50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7
     );
     -webkit-clip-path: polygon(
       50% 0%, 75% 6.7%, 93.3% 25%, 100% 50%, 93.3% 75%, 75% 93.3%,
-      50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7%
+      50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7
     );
   }
 
