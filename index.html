@@ -6,7 +6,7 @@
   <title>Daggerheart Dice Roller</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans:wght@400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
 
 </head>
@@ -28,11 +28,12 @@
         <p class="die-label">d12</p>
       </div>
     </div>
+    <hr class="divider">
 
     <div class="controls">
       <label for="dcInput">Difficulty Class (DC) - Set to 0 for raw roll:</label>
       <input type="number" id="dcInput" value="0" min="0" max="30">
-      <button class="roll-button" onclick="rollDice()">Roll the Dice!</button>
+      <button class="menu-button" onclick="rollDice()">Roll the Dice!</button>
     </div>
 
     <div id="outcome" class="outcome-card" style="display: none;">
