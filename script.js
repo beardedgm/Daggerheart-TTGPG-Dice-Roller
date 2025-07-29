@@ -98,3 +98,45 @@ document.addEventListener("keydown", function (event) {
     rollDice();
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.getElementById("animation-container");
+  const particleCount = 60; // Number of particles
+
+  for (let i = 0; i < particleCount; i++) {
+    let particle = document.createElement("div");
+    particle.classList.add("particle");
+
+    // Randomize properties for each particle
+    const size = Math.random() * 8 + 2; // size between 1px and 5px
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+
+    particle.style.left = `${Math.random() * 100}%`;
+
+    const duration = Math.random() * 15 + 10; // duration between 10s and 25s
+    particle.style.animationDuration = `${duration}s`;
+
+    const delay = Math.random() * 15; // delay up to 15s
+    particle.style.animationDelay = `${delay}s`;
+
+    // Randomize horizontal drift direction
+    if (Math.random() > 0.5) {
+      particle.style.animationName = "float-reverse";
+    }
+
+    container.appendChild(particle);
+  }
+});
+
+// Create a second keyframe for reverse horizontal movement
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = `
+            @keyframes float-reverse {
+                0% { transform: translateY(0) translateX(0); opacity: 0; }
+                50% { opacity: 1; }
+                100% { transform: translateY(-110vh) translateX(-15vw); opacity: 0; }
+            }
+        `;
+document.head.appendChild(styleSheet);
