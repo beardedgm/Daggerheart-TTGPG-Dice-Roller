@@ -24,16 +24,14 @@ background: linear-gradient(135deg, #1d0f3b, #000, #0f0c29);
 }
 
 .dice-container {
-            background: rgba(30, 15, 60, 0.25); /* Translucent dark purple */
-            backdrop-filter: blur(6px); /* The frosted glass blur effect */
-            z-index: 2; /* Ensure panel is above the background animation */
-
+  background: rgba(30, 15, 60, 0.25); /* Translucent dark purple */
+  backdrop-filter: blur(6px); /* The frosted glass blur effect */
+  z-index: 2; /* Ensure panel is above the background animation */
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .dice-row {
@@ -250,7 +248,7 @@ background: linear-gradient(135deg, #1d0f3b, #000, #0f0c29);
   }
 }
 /* --- Animated Background Styles --- */
-        #animation-container {
+#animation-container {
             position: absolute;
             top: 0;
             left: 0;
@@ -260,7 +258,7 @@ background: linear-gradient(135deg, #1d0f3b, #000, #0f0c29);
             pointer-events: none; /* Allows clicks to pass through */
         }
 
-        .particle {
+.particle {
             position: absolute;
             bottom: -20px; /* Start below the screen */
             /* A bright, magical pink/purple for the dust */
@@ -270,7 +268,7 @@ background: linear-gradient(135deg, #1d0f3b, #000, #0f0c29);
             animation: float 20s infinite;
         }
 
-        @keyframes float {
+@keyframes float {
             0% {
                 transform: translateY(0) translateX(0);
                 opacity: 0;
