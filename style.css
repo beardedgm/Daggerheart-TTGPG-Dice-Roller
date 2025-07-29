@@ -249,6 +249,26 @@ body {
   }
 }
 
+@media (max-width: 400px) {
+  body {
+    padding: 1rem;
+  }
+
+  .app-title {
+    font-size: 1.4rem;
+  }
+
+  .die-face {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .outcome-card {
+    font-size: 1rem;
+  }
+}
+
 /* --- Animated Background Styles --- */
 #animation-container {
   position: absolute;
