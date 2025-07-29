@@ -101,14 +101,14 @@ document.addEventListener("keydown", function (event) {
 
 document.addEventListener("DOMContentLoaded", function () {
   const container = document.getElementById("animation-container");
-  const particleCount = 60; // Number of particles
+  const particleCount = 40; // Number of particles
 
   for (let i = 0; i < particleCount; i++) {
     let particle = document.createElement("div");
     particle.classList.add("particle");
 
     // Randomize properties for each particle
-    const size = Math.random() * 8 + 2; // size between 1px and 5px
+    const size = Math.random() * 6 + 2; // size between 1px and 5px
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
 
