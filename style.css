@@ -1,304 +1,293 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    /* CSS for the Daggerheart Dice Roller - The Oracle's Table
+      This section handles all the styling, from the dark fantasy theme
+      to the animations and responsive design.
+    */
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
-body {
-  background: linear-gradient(135deg, #291746, #2196b0, #291746);
-  color: #f0f0f0;
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-}
+    body {
+      background-color: #2c2038; /* Solid dark purple background */
+      color: #e0e0e0;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
 
-.app-container {
-  max-width: 450px;
-  width: 100%;
-}
+    .app-container {
+      max-width: 550px;
+      width: 100%;
+    }
 
-.app-title {
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 2rem;
-}
+    .app-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #e8d5a2;
+      text-shadow: 0 0 10px rgba(232, 213, 162, 0.4);
+    }
 
-.dice-container {
-  background: rgba(30, 15, 60, 0.25); /* Translucent dark purple */
-  backdrop-filter: blur(6px); /* The frosted glass blur effect */
-  position: relative; /* Ensure z-index takes effect */
-  z-index: 2; /* Ensure panel is above the background animation */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  -webkit-backdrop-filter: blur(6px);
-}
+    .meta-counters {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
-.dice-row {
-  display: flex;
-  justify-content: space-around;
-  gap: 1rem;
-}
+    .counter-block {
+      text-align: center;
+      flex-grow: 1;
+    }
 
-.die-section {
-  text-align: center;
-}
+    .counter-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .hope-title { color: #ffd700; }
+    .fear-title { color: #dc143c; }
 
-.die-title {
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
+    .counter-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 0.25rem;
+      max-width: 200px;
+      margin: 0 auto;
+    }
 
-.die-label {
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
+    .counter-control span {
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 0 1rem;
+      min-width: 40px;
+    }
 
-.controls {
-  text-align: center;
-  margin-top: 2rem;
-}
+    .adjust-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 30px;
+      height: 30px;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .adjust-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
 
-.controls label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
+    .dice-container {
+      background: rgba(15, 10, 25, 0.5);
+      backdrop-filter: blur(2px);
+      border: 2px solid #30281a;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.7), 0 8px 32px rgba(0,0,0,0.5);
+      border-radius: 1rem;
+      padding: 2rem;
+    }
 
-.controls input {
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 0.5rem;
-  padding: 0.3rem 0.5rem;
-  text-align: center;
-  width: 120px;
-  margin-bottom: 1rem;
-  color: #ffffff;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
+    .dice-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+    }
 
-.die-face {
-  width: 120px;
-  height: 120px;
-  clip-path: polygon(
-    50% 0%, 75% 6.7%, 93.3% 25%, 100% 50%, 93.3% 75%, 75% 93.3%,
-    50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7%
-  );
-  -webkit-clip-path: polygon(
-    50% 0%, 75% 6.7%, 93.3% 25%, 100% 50%, 93.3% 75%, 75% 93.3%,
-    50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 0 auto 1rem;
-  transition: all 0.3s ease;
-}
+    .die-section {
+      text-align: center;
+    }
 
-.hope-die {
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  color: #1a1a1a;
-  border: 3px solid #ffa500;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-}
+    .die-title {
+      font-family: 'Cinzel', serif;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
 
-.fear-die {
-  background: linear-gradient(135deg, #8b0000, #dc143c);
-  color: #ffffff;
-  border: 3px solid #660000;
-  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
-}
+    .die-label {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
 
-.rolling {
-  animation: rollDice 0.6s ease-in-out;
-}
+    .controls {
+      text-align: center;
+      margin-top: 2rem;
+    }
 
-@keyframes rollDice {
-  0%, 100% {
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    transform: scale(1.1) rotate(90deg);
-  }
-  50% {
-    transform: scale(1.2) rotate(180deg);
-  }
-  75% {
-    transform: scale(1.1) rotate(270deg);
-  }
-}
+    .controls label {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
 
-.outcome-card {
-  border-radius: 15px;
-  padding: 1.5rem;
-  margin-top: 2rem;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
+    .controls input {
+      background: rgba(0,0,0, 0.4);
+      border: 1px solid #4a4030;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.7rem;
+      text-align: center;
+      width: 120px;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      font-size: 1.1rem;
+    }
 
-.hope-success {
-  background: linear-gradient(135deg, #22c55e, #86efac);
-  color: #1a1a1a;
-  border: 2px solid #16a34a;
-}
+    .die-face {
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin: 0 auto 1rem;
+      transition: all 0.3s ease;
+      clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+    }
 
-.fear-outcome {
-  background: linear-gradient(135deg, #dc2626, #f87171);
-  color: #ffffff;
-  border: 2px solid #991b1b;
-}
+    .hope-die {
+      background: linear-gradient(135deg, #ffd700, #ffb822);
+      color: #2c1a00;
+      text-shadow: 0 0 5px rgba(255,255,255,0.5);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
 
-.success-with-fear {
-  background: linear-gradient(135deg, #ea580c, #fdba74);
-  color: #ffffff;
-  border: 2px solid #c2410c;
-}
+    .fear-die {
+      background: linear-gradient(135deg, #a00000, #e01e1e);
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(0,0,0,0.7);
+      box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+    }
 
-.failure-with-hope {
-  background: linear-gradient(135deg, #2563eb, #93c5fd);
-  color: #ffffff;
-  border: 2px solid #1d4ed8;
-}
+    .rolling {
+      animation: rollDice 0.6s ease-in-out;
+    }
 
-.critical-success {
-  background: linear-gradient(135deg, #ffd700, #fff8dc);
-  color: #1a1a1a;
-  border: 2px solid #daa520;
-  animation: glow 2s ease-in-out infinite alternate;
-}
+    @keyframes rollDice {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.15) rotate(180deg); }
+    }
 
-@keyframes glow {
-  from {
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-  }
-  to {
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.3);
-  }
-}
+    .outcome-card {
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      border-width: 3px;
+      border-style: solid;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
 
-.menu-button {
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 0.75rem 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
+    .outcome-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+    }
+    .outcome-card p {
+      margin: 0.25rem 0;
+    }
+    .outcome-card .duality-text {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 0.75rem;
+    }
+    .outcome-card .roll-breakdown {
+      opacity: 0.8;
+      font-size: 1rem;
+    }
 
-.menu-button:hover {
-  background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
+    .hope-success {
+      background: linear-gradient(135deg, #2e7d32, #4caf50);
+      border-color: #81c784;
+      color: #fff;
+    }
+    .fear-outcome {
+      background: linear-gradient(135deg, #b71c1c, #f44336);
+      border-color: #ef5350;
+      color: #fff;
+    }
+    .success-with-fear {
+      background: linear-gradient(135deg, #e65100, #fb8c00);
+      border-color: #ffb74d;
+      color: #fff;
+    }
+    .failure-with-hope {
+      background: linear-gradient(135deg, #0d47a1, #2196f3);
+      border-color: #64b5f6;
+      color: #fff;
+    }
+    .critical-success {
+      background: linear-gradient(135deg, #f5f5f5, #ffd700);
+      border-color: #fff;
+      color: #000;
+      animation: glow 1.5s ease-in-out infinite alternate;
+    }
 
-.menu-button:active {
-  transform: translateY(0);
-}
+    @keyframes glow {
+      from { box-shadow: 0 0 20px #fff, 0 0 30px #ffd700, 0 0 40px #e65100; }
+      to { box-shadow: 0 0 30px #fff, 0 0 40px #ffd700, 0 0 50px #e65100; }
+    }
 
-.divider {
-  margin: 2rem 0;
-  border: none;
-  height: 1px;
-  background-image: linear-gradient(to right, transparent, rgba(255,255,255,0.4) 50%, transparent);
-}
+    .menu-button {
+      background: linear-gradient(135deg, #8d6e63, #6d4c41);
+      border: 2px solid #4e342e;
+      color: #ffffff;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.8rem 2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .menu-button:hover {
+      background: linear-gradient(135deg, #a1887f, #8d6e63);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+    .menu-button:active {
+      transform: translateY(0);
+    }
 
-@media (max-width: 500px) {
-  .dice-row {
-    flex-direction: column;
-    align-items: center;
-  }
+    .divider {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background-image: linear-gradient(to right, transparent, #a1887f 50%, transparent);
+    }
 
-  .die-face {
-    width: 80px;
-    height: 80px;
-    font-size: 2.5rem;
-    clip-path: polygon(
-      50% 0%, 75% 6.7%, 93.3% 25%, 100% 50%, 93.3% 75%, 75% 93.3%,
-      50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7%
-    );
-    -webkit-clip-path: polygon(
-      50% 0%, 75% 6.7%, 93.3% 25%, 100% 50%, 93.3% 75%, 75% 93.3%,
-      50% 100%, 25% 93.3%, 6.7% 75%, 0% 50%, 6.7% 25%, 25% 6.7%
-    );
-  }
-
-  .dice-container {
-    padding: 1rem;
-  }
-
-  .controls input {
-    width: 100%;
-    max-width: 160px;
-  }
-
-  .menu-button {
-    width: 100%;
-    padding: 0.8rem 1.5rem;
-  }
-}
-
-@media (max-width: 400px) {
-  body {
-    padding: 1rem;
-  }
-
-  .app-title {
-    font-size: 1.4rem;
-  }
-
-  .die-face {
-    width: 70px;
-    height: 70px;
-    font-size: 2rem;
-  }
-
-  .outcome-card {
-    font-size: 1rem;
-  }
-}
-
-/* --- Animated Background Styles --- */
-#animation-container {
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none; /* Allows clicks to pass through */
-}
-
-.particle {
-  position: absolute;
-  bottom: -20px; /* Start below the screen */
-  background-color: rgba(255, 100, 255, 0.6);
-  border-radius: 50%;
-  opacity: 0;
-  animation: float 20s infinite;
-}
- @keyframes float {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-110vh) translateX(15vw);
-    opacity: 0;
-  }
-}
+    /* Responsive Design for smaller screens */
+    @media (max-width: 500px) {
+      body {
+        padding: 1rem;
+      }
+      .app-title {
+        font-size: 2rem;
+      }
+      .dice-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .die-face {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+      }
+      .dice-container {
+        padding: 1.5rem;
+      }
+    }
