@@ -251,6 +251,7 @@ background: linear-gradient(135deg, #1d0f3b, #000, #0f0c29);
 /* --- Animated Background Styles --- */
 #animation-container {
             position: absolute;
+            overflow: hidden;
             top: 0;
             left: 0;
             width: 100%;
