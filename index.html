@@ -1,74 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daggerheart Dice Roller</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daggerheart Dice Roller</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<!-- particle animation -->
-<div id="animation-container"></div>
-<div class="app-container">
+    <div class="container">
+        <div class="app">
+            
+            <!-- Compact Header -->
+            <div class="header">
+                <h1>Oracle's Table</h1>
+            </div>
 
-  <!-- Hope and Fear counters for tracking game resources -->
-  <div class="meta-counters">
-    <div class="counter-block">
-      <h2 class="counter-title hope-title">Player Hope</h2>
-      <div class="counter-control">
-        <button class="adjust-btn" onclick="adjustCounter('hope', -1)">-</button>
-        <span id="hopeCounter">0</span>
-        <button class="adjust-btn" onclick="adjustCounter('hope', 1)">+</button>
-      </div>
+            <!-- Token Counters - Compact Row -->
+            <div class="counters">
+                <div class="counter hope-counter">
+                    <div class="counter-label">Hope</div>
+                    <div class="counter-controls">
+                        <button class="counter-btn" onclick="adjustCounter('hope', -1)">−</button>
+                        <span class="counter-value" id="hopeCounter">0</span>
+                        <button class="counter-btn" onclick="adjustCounter('hope', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="counter fear-counter">
+                    <div class="counter-label">Fear</div>
+                    <div class="counter-controls">
+                        <button class="counter-btn" onclick="adjustCounter('fear', -1)">−</button>
+                        <span class="counter-value" id="fearCounter">0</span>
+                        <button class="counter-btn" onclick="adjustCounter('fear', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dice Area -->
+            <div class="dice-area">
+                
+                <!-- Large Dice Display -->
+                <div class="dice-container">
+                    <div class="die-section">
+                        <div class="die-label">Hope</div>
+                        <div class="die hope-die" id="hopeDie">?</div>
+                    </div>
+                    
+                    <div class="die-section">
+                        <div class="die-label">Fear</div>
+                        <div class="die fear-die" id="fearDie">?</div>
+                    </div>
+                </div>
+
+                <!-- DC Input -->
+                <div class="dc-input">
+                    <label for="dcInput">DC:</label>
+                    <input type="number" id="dcInput" value="10" min="0" max="30">
+                </div>
+
+                <!-- Big Roll Button -->
+                <button class="roll-button" id="rollButton" onclick="rollDice()">
+                    🎲 ROLL DICE
+                </button>
+            </div>
+
+            <!-- Outcome Display -->
+            <div class="outcome" id="outcome" style="display: none;">
+                <h3 class="outcome-title" id="outcomeTitle"></h3>
+                <div class="outcome-details" id="outcomeDetails"></div>
+                <div class="outcome-token" id="outcomeToken"></div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <p>Tap Enter to roll • Doubles = Critical Success</p>
+            </div>
+        </div>
     </div>
-    <div class="counter-block">
-      <h2 class="counter-title fear-title">GM Fear</h2>
-      <div class="counter-control">
-        <button class="adjust-btn" onclick="adjustCounter('fear', -1)">-</button>
-        <span id="fearCounter">0</span>
-        <button class="adjust-btn" onclick="adjustCounter('fear', 1)">+</button>
-      </div>
-    </div>
-  </div>
 
-  <h1 class="app-title">The Oracle's Table</h1>
-
-  <!-- Main dice rolling area -->
-  <div class="dice-container">
-    <div class="dice-row">
-      <div class="die-section">
-        <h3 class="die-title hope">Hope Die</h3>
-        <div class="die-face hope-die" id="hopeDie">?</div>
-        <p class="die-label">d12</p>
-      </div>
-      <div class="die-section">
-        <h3 class="die-title fear">Fear Die</h3>
-        <div class="die-face fear-die" id="fearDie">?</div>
-        <p class="die-label">d12</p>
-      </div>
-    </div>
-    <hr class="divider">
-
-    <!-- Controls for setting DC and rolling -->
-    <div class="controls">
-      <label for="dcInput">Difficulty Class (DC)</label>
-      <input type="number" id="dcInput" value="10" min="0" max="30">
-      <button class="menu-button" onclick="rollDice()">Roll the Dice!</button>
-    </div>
-
-    <!-- Outcome of the roll is displayed here -->
-    <div id="outcome" class="outcome-card" style="display: none;">
-      <!-- Dynamic content will be injected by JavaScript -->
-    </div>
-  </div>
-</div>
-
-<!-- partial -->
-  <script  src="./script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
