@@ -1,110 +1,171 @@
-  /* JavaScript for the Daggerheart Dice Roller
-    This section handles the core logic:
-    - Rolling the dice.
-    - Calculating outcomes based on Daggerheart rules.
-    - Updating the Hope/Fear counters.
-    - Displaying the results dynamically.
-  */
+// Game State
+let hopeCount = 0;
+let fearCount = 0;
+let hopeRoll = null;
+let fearRoll = null;
+let isRolling = false;
 
-  /**
-   * Adjusts the value of the Hope or Fear counters.
-   * @param {string} type - 'hope' or 'fear'.
-   * @param {number} amount - The value to add (can be negative).
-   */
-  function adjustCounter(type, amount) {
-    const counterElement = document.getElementById(`${type}Counter`);
-    let currentValue = parseInt(counterElement.textContent);
-    currentValue += amount;
-    if (currentValue < 0) currentValue = 0; // Prevent negative counts
-    counterElement.textContent = currentValue;
-  }
+// DOM Elements
+const hopeCounterEl = document.getElementById('hopeCounter');
+const fearCounterEl = document.getElementById('fearCounter');
+const dcInputEl = document.getElementById('dcInput');
+const hopeDieEl = document.getElementById('hopeDie');
+const fearDieEl = document.getElementById('fearDie');
+const rollButtonEl = document.getElementById('rollButton');
+const outcomeEl = document.getElementById('outcome');
+const outcomeTitleEl = document.getElementById('outcomeTitle');
+const outcomeDetailsEl = document.getElementById('outcomeDetails');
+const outcomeTokenEl = document.getElementById('outcomeToken');
 
-  /**
-   * Simulates rolling the Daggerheart dice and determines the outcome.
-   */
-  function rollDice() {
-    const hopeDieEl = document.getElementById("hopeDie");
-    const fearDieEl = document.getElementById("fearDie");
-    const outcomeDiv = document.getElementById("outcome");
+// Utility Functions
+function updateCounterDisplay() {
+    hopeCounterEl.textContent = hopeCount;
+    fearCounterEl.textContent = fearCount;
+}
 
-    // Start rolling animation and hide previous outcome
-    hopeDieEl.classList.add("rolling");
-    fearDieEl.classList.add("rolling");
-    outcomeDiv.style.display = "none";
-
-    // Use a timeout to allow the animation to play
-    setTimeout(() => {
-      // Generate random numbers for each d12
-      const hopeRoll = Math.floor(Math.random() * 12) + 1;
-      const fearRoll = Math.floor(Math.random() * 12) + 1;
-      const dc = parseInt(document.getElementById("dcInput").value) || 0;
-      const total = hopeRoll + fearRoll;
-
-      // Update die faces with results and stop animation
-      hopeDieEl.textContent = hopeRoll;
-      fearDieEl.textContent = fearRoll;
-      hopeDieEl.classList.remove("rolling");
-      fearDieEl.classList.remove("rolling");
-
-      let outcomeHTML = "";
-      let outcomeClass = "";
-
-      // Check for Critical Success (doubles)
-      if (hopeRoll === fearRoll) {
-        outcomeClass = "critical-success";
-        outcomeHTML = `
-          <h3>🌟 CRITICAL SUCCESS! 🌟</h3>
-          <p class="roll-breakdown">Both dice rolled ${hopeRoll}! Total: ${total}</p>
-          <p class="duality-text">Automatic success with spectacular results!</p>
-        `;
-        adjustCounter('hope', 1); // Crit Success always gives Hope
-      } else {
-        // Standard roll logic
-        const succeeded = dc > 0 && total >= dc;
-        let successFailureText = dc > 0 ? (succeeded ? "SUCCESS" : "FAILURE") : "RAW ROLL";
-        let rollBreakdown = `Total: ${total} (${hopeRoll} + ${fearRoll})` + (dc > 0 ? ` vs DC ${dc}` : '');
-
-        // Check if Hope or Fear die is higher
-        if (hopeRoll > fearRoll) {
-          adjustCounter('hope', 1);
-          if (dc > 0) {
-            outcomeClass = succeeded ? "hope-success" : "failure-with-hope";
-          } else {
-            outcomeClass = "hope-success";
-          }
-          outcomeHTML = `
-            <h3>${successFailureText}</h3>
-            <p class="roll-breakdown">${rollBreakdown}</p>
-            <p class="duality-text">🌟 Hope die higher! Gain 1 Hope.</p>
-          `;
-        } else {
-          adjustCounter('fear', 1);
-          if (dc > 0) {
-            outcomeClass = succeeded ? "success-with-fear" : "fear-outcome";
-          } else {
-              outcomeClass = "fear-outcome";
-          }
-          outcomeHTML = `
-            <h3>${successFailureText}</h3>
-            <p class="roll-breakdown">${rollBreakdown}</p>
-            <p class="duality-text">⚠️ Fear die higher! GM gains 1 Fear.</p>
-          `;
-        }
-      }
-
-      // Display the final outcome
-      outcomeDiv.innerHTML = outcomeHTML;
-      outcomeDiv.className = `outcome-card ${outcomeClass}`;
-      outcomeDiv.style.display = "block";
-    }, 600); // Duration should match the CSS roll animation
-  }
-
-  // Add event listener to allow rolling with the Enter key
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      // Prevents rolling while typing in the input field
-      if (document.activeElement.id !== 'dcInput') {
-          rollDice();
-      }
+function adjustCounter(type, amount) {
+    if (type === 'hope') {
+        hopeCount = Math.max(0, hopeCount + amount);
+    } else {
+        fearCount = Math.max(0, fearCount + amount);
     }
-  });
+    updateCounterDisplay();
+}
+
+function updateDiceDisplay() {
+    hopeDieEl.textContent = hopeRoll || '?';
+    fearDieEl.textContent = fearRoll || '?';
+}
+
+function showOutcome(outcome) {
+    outcomeTitleEl.textContent = outcome.title;
+    
+    const dc = parseInt(dcInputEl.value) || 0;
+    const total = hopeRoll + fearRoll;
+    
+    outcomeDetailsEl.textContent = `Total: ${total} (${hopeRoll} + ${fearRoll})${dc > 0 ? ` vs DC ${dc}` : ''}`;
+    
+    if (outcome.tokenChange) {
+        outcomeTokenEl.textContent = `+1 ${outcome.tokenChange.type === 'hope' ? '✨ Hope' : '⚡ Fear'}`;
+    }
+    
+    // Reset outcome classes
+    outcomeEl.className = 'outcome';
+    outcomeEl.classList.add(outcome.type);
+    outcomeEl.style.display = 'block';
+}
+
+function hideOutcome() {
+    outcomeEl.style.display = 'none';
+}
+
+async function rollDice() {
+    if (isRolling) return;
+    
+    isRolling = true;
+    hideOutcome();
+    
+    // Update button state
+    rollButtonEl.textContent = 'Rolling...';
+    rollButtonEl.disabled = true;
+    
+    // Add rolling animation
+    hopeDieEl.classList.add('rolling');
+    fearDieEl.classList.add('rolling');
+    
+    // Quick rolling animation
+    const rollDuration = 600;
+    const rollInterval = 80;
+    
+    const rollAnimation = setInterval(() => {
+        hopeRoll = Math.floor(Math.random() * 12) + 1;
+        fearRoll = Math.floor(Math.random() * 12) + 1;
+        updateDiceDisplay();
+    }, rollInterval);
+
+    setTimeout(() => {
+        clearInterval(rollAnimation);
+        
+        // Final roll
+        hopeRoll = Math.floor(Math.random() * 12) + 1;
+        fearRoll = Math.floor(Math.random() * 12) + 1;
+        updateDiceDisplay();
+        
+        // Remove rolling animation
+        hopeDieEl.classList.remove('rolling');
+        fearDieEl.classList.remove('rolling');
+        
+        // Reset button state
+        isRolling = false;
+        rollButtonEl.textContent = '🎲 ROLL DICE';
+        rollButtonEl.disabled = false;
+
+        // Calculate outcome
+        const dc = parseInt(dcInputEl.value) || 0;
+        const total = hopeRoll + fearRoll;
+        let outcome = {};
+
+        if (hopeRoll === fearRoll) {
+            // Critical Success
+            outcome = {
+                type: 'critical',
+                title: '⭐ CRITICAL',
+                tokenChange: { type: 'hope', amount: 1 }
+            };
+            adjustCounter('hope', 1);
+        } else {
+            const succeeded = dc > 0 && total >= dc;
+            const hopeHigher = hopeRoll > fearRoll;
+            
+            if (dc === 0) {
+                // Raw roll mode - no success/failure, use success styling
+                if (hopeHigher) {
+                    outcome = {
+                        type: 'hope',
+                        title: '✨ HOPE HIGHER',
+                        tokenChange: { type: 'hope', amount: 1 }
+                    };
+                    adjustCounter('hope', 1);
+                } else {
+                    outcome = {
+                        type: 'hope', // Use hope styling for all raw rolls
+                        title: '⚡ FEAR HIGHER',
+                        tokenChange: { type: 'fear', amount: 1 }
+                    };
+                    adjustCounter('fear', 1);
+                }
+            } else {
+                // Normal DC mode
+                if (hopeHigher) {
+                    outcome = {
+                        type: 'hope',
+                        title: succeeded ? '✨ SUCCESS' : '💫 FAILURE',
+                        tokenChange: { type: 'hope', amount: 1 }
+                    };
+                    adjustCounter('hope', 1);
+                } else {
+                    outcome = {
+                        type: 'fear',
+                        title: succeeded ? '⚡ SUCCESS' : '🌩️ FAILURE',
+                        tokenChange: { type: 'fear', amount: 1 }
+                    };
+                    adjustCounter('fear', 1);
+                }
+            }
+        }
+
+        showOutcome(outcome);
+    }, rollDuration);
+}
+
+// Event Listeners
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' && event.target.type !== 'number') {
+        event.preventDefault();
+        rollDice();
+    }
+});
+
+// Initialize
+updateCounterDisplay();
+updateDiceDisplay();
