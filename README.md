@@ -1,4 +1,4 @@
-# Daggerheart TTGPG Dice Roller
+# Oracle's Table - Daggerheart TTGPG Inspired Dice Roller
 
 This project is a lightweight web-based dice roller tailored for the Daggerheart tabletop playtest. It provides an easy way to roll the game's Hope and Fear d12 dice, compare the total against a Difficulty Class (DC) and see the resulting outcome.
 
