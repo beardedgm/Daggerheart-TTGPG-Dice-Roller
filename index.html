@@ -3,8 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
     <title>Oracle's Table - Daggerheart RPC Inspired Dice Roller</title>
-    <link rel="stylesheet" href="./style.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Oracle's Table – Daggerheart Dice Roller">
+  <meta property="og:description" content="Roll Hope and Fear d12s online with this simple dice roller for the Daggerheart RPG playtest. No install needed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gamedice.app/">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Oracle's Table – Daggerheart Dice Roller">
+  <meta name="twitter:description" content="Lightweight web app to roll Hope and Fear dice for Daggerheart. Instant results, no setup.">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Oracle's Table – Daggerheart Dice Roller",
+    "operatingSystem": "All",
+    "applicationCategory": "GameApplication",
+    "browserRequirements": "Requires JavaScript and a modern web browser",
+    "description": "Browser-based dice roller for Daggerheart RPG. Roll Hope and Fear dice, set a DC, and see the result instantly.",
+    "url": "https://gamedice.app/"
+    }
+  }
+  </script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4VHB5ELZS"></script>
 <script>
@@ -14,6 +41,7 @@
 
   gtag('config', 'G-B4VHB5ELZS');
 </script>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="container">
