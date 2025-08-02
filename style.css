@@ -301,6 +301,144 @@ body {
     font-weight: 500;
 }
 
+/* History Section */
+.history-section {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.history-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #d1d5db;
+}
+
+.clear-history-btn {
+    padding: 6px 12px;
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 6px;
+    color: #fca5a5;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-history-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.clear-history-btn:disabled {
+    background: rgba(75, 85, 99, 0.2);
+    border-color: rgba(75, 85, 99, 0.3);
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+#history {
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
+}
+
+#history::-webkit-scrollbar {
+    width: 6px;
+}
+
+#history::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#history::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.3);
+    border-radius: 3px;
+}
+
+#history::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.5);
+}
+
+.history-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    background: rgba(75, 85, 99, 0.2);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+    border-radius: 6px;
+    font-size: 13px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.history-dice {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.history-die {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.history-die.hope {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: black;
+}
+
+.history-die.fear {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.history-total {
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.history-dc {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.history-empty {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+    padding: 20px;
+}
+
 /* Instructions */
 .instructions {
     text-align: center;
@@ -327,6 +465,14 @@ body {
     
     .dice-area {
         padding: 12px;
+    }
+    
+    .history-section {
+        padding: 12px;
+    }
+    
+    .history-entry {
+        padding: 6px 8px;
     }
 }
 
