@@ -4,6 +4,7 @@ let fearCount = 0;
 let hopeRoll = null;
 let fearRoll = null;
 let isRolling = false;
+let rollHistory = [];
 
 // DOM Elements
 const hopeCounterEl = document.getElementById('hopeCounter');
@@ -16,6 +17,8 @@ const outcomeEl = document.getElementById('outcome');
 const outcomeTitleEl = document.getElementById('outcomeTitle');
 const outcomeDetailsEl = document.getElementById('outcomeDetails');
 const outcomeTokenEl = document.getElementById('outcomeToken');
+const historyEl = document.getElementById('history');
+const clearHistoryBtnEl = document.getElementById('clearHistoryBtn');
 
 // Utility Functions
 function updateCounterDisplay() {
@@ -57,6 +60,51 @@ function showOutcome(outcome) {
 
 function hideOutcome() {
     outcomeEl.style.display = 'none';
+}
+
+function addToHistory(hope, fear, total, dc) {
+    // Add to history array
+    rollHistory.push({ hope, fear, total, dc });
+    
+    // Remove empty message if it exists
+    const emptyMessage = historyEl.querySelector('.history-empty');
+    if (emptyMessage) {
+        emptyMessage.remove();
+    }
+    
+    // Create history entry element
+    const historyEntry = document.createElement('div');
+    historyEntry.className = 'history-entry';
+    
+    historyEntry.innerHTML = `
+        <div class="history-dice">
+            <div class="history-die hope">${hope}</div>
+            <div class="history-die fear">${fear}</div>
+        </div>
+        <div class="history-total">${total}</div>
+        <div class="history-dc">${dc > 0 ? `DC ${dc}` : 'Flat'}</div>
+    `;
+    
+    // Add to top of history
+    historyEl.insertBefore(historyEntry, historyEl.firstChild);
+    
+    // Update clear button state
+    clearHistoryBtnEl.disabled = false;
+    
+    // Limit history to last 10 rolls
+    if (rollHistory.length > 10) {
+        rollHistory.shift();
+        const entries = historyEl.querySelectorAll('.history-entry');
+        if (entries.length > 10) {
+            entries[entries.length - 1].remove();
+        }
+    }
+}
+
+function clearHistory() {
+    rollHistory = [];
+    historyEl.innerHTML = '<div class="history-empty">No rolls yet</div>';
+    clearHistoryBtnEl.disabled = true;
 }
 
 async function rollDice() {
@@ -155,6 +203,9 @@ async function rollDice() {
         }
 
         showOutcome(outcome);
+        
+        // Add to history
+        addToHistory(hopeRoll, fearRoll, total, dc);
     }, rollDuration);
 }
 
@@ -169,3 +220,4 @@ document.addEventListener('keydown', function(event) {
 // Initialize
 updateCounterDisplay();
 updateDiceDisplay();
+clearHistoryBtnEl.disabled = true;
